@@ -1,0 +1,95 @@
+@model MovieModel
+
+@* Generated from Custom Template. *@
+@* Model namespace using directive should be added to _ViewImports.cshtml. *@
+
+@{
+    var containerDivClass = "container";
+    var dateTimePickerClass = "datetimepicker";
+}
+@{
+    ViewData["Title"] = "movie Edit";
+}
+
+<div class="@containerDivClass">
+    <h3>@ViewData["Title"]</h3>
+    <hr />
+</div>
+
+@if (Model is not null)
+{
+<div class="@containerDivClass">
+    @if (TempData["Message"] is not null)
+    {
+    <p class="text-danger">
+        @TempData["Message"]
+    </p>
+    }
+    <form asp-action="Edit" autocomplete="off">
+	    @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Record.id" />
+        <div class="row mb-3">
+            <label asp-for="Name" class="col-2 col-form-label fw-bold"></label>
+	        <div class="col-10">
+	            <input asp-for="Record.name" class="form-control" />
+		        <span asp-validation-for="Record.name" class="text-danger"></span>
+	        </div>
+        </div>
+        <div class="row mb-3">
+            <label asp-for="ReleaseDate" class="col-2 col-form-label fw-bold"></label>
+	        <div class="col-10">
+		        <input asp-for="Record.releasedate"
+		               class="form-control"
+		               type="text"
+		               placeholder="MM/dd/yyyy"
+		               data-date-format="MM/dd/yyyy"
+		               pattern="\d{2}/\d{2}/\d{4}"
+		               title="Please enter the date in dd/MM/yyyy format." />
+
+		        <span asp-validation-for="Record.releasedate" class="text-danger"></span>
+	        </div>
+        </div>
+        <div class="row mb-3">
+            <label asp-for="TotalRevenue" class="col-2 col-form-label fw-bold"></label>
+	        <div class="col-10">
+	            <input asp-for="Record.totalrevenue" class="form-control" />
+		        <span asp-validation-for="Record.totalrevenue" class="text-danger"></span>
+	        </div>
+        </div>
+        <div class="row mb-3">
+            <label asp-for="MovieDirector" class="col-2 col-form-label fw-bold"></label>
+            <div class="col-10">
+	            <select asp-for="Record.directorid" class="form-select" asp-items="ViewBag.directorid">
+		            <option value="">-- Select --</option>
+	            </select>
+	            <span asp-validation-for="Record.directorid" class="text-danger"></span>
+            </div>
+        </div>
+
+@* Can be uncommented and used for many to many relationships. ManyToManyRecord may be replaced with the related entiy name in the controller and views. *@
+        @*
+        <div class="row mb-3">
+            <label asp-for="ManyToManyRecordIds" class="col-2 col-form-label fw-bold"></label>
+	        <div class="col-10">
+		        <select multiple asp-for="ManyToManyRecordIds" class="form-select" asp-items="ViewBag.ManyToManyRecordIds"></select>
+		        <span asp-validation-for="ManyToManyRecordIds" class="text-danger"></span>
+	        </div>
+        </div>
+        *@
+
+        <hr />
+        <div class="row mb-3">
+	        <div class="offset-2 col-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+		        &nbsp;&nbsp;
+                <button type="reset" class="btn btn-outline-primary">Reset</button>
+		        &nbsp;&nbsp;
+                <a asp-action="Delete" asp-route-id="@Model.Record.id">Delete</a>
+                &nbsp;&nbsp;
+		        <a asp-action="Index">Back to List</a>
+	        </div>
+        </div>
+    </form>
+</div>
+}

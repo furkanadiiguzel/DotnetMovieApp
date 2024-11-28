@@ -1,0 +1,3 @@
+[submodule "MoviesApp"]
+	path = MoviesApp
+	url = https://github.com/furkanadiiguzel/MovieApp.git
